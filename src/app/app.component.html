@@ -1,10 +1,10 @@
-<div style="width: 100vw;" class="">
-  <div class="header">
-    <form id="api-test" style="margin: auto;" class="form" [ngClass]="{'borderGreen': Result == '200', 'borderRed':Result=='500'}">
+<!-- <div class="d-block" style="width: 100vw;">
+  <div class="header d-inline-block">
+    <form id="api-test" style="margin: auto;" class="formd" [ngClass]="{'borderGreen': Result == '200', 'borderRed':Result=='500'}">
       <div id="success" *ngIf="Result == '200'" class="text-center fs-3 fw-bold" style="margin-top: -5%; color: greenyellow;">Success</div>
       <div id="failed" *ngIf="Result == '500'" class="text-center fs-3 fw-bold" style="margin-top: -5%; color: crimson;">Failed</div>
-  
-        <div> 
+
+        <div>
             <div><label for="question">Question Title:</label></div>
             <input type="text" id="header" name="header" required style="width: 90%;">
         </div>
@@ -26,7 +26,7 @@
                 <option value="Schedule">Schedule</option>
                 <option value="Time & Labor">Time & Labor</option>
                 <option value="Human resources">Human resources</option>
-                <option value="Reports">Reports</option> 
+                <option value="Reports">Reports</option>
                 <option value="Setup - Security">Setup - Security</option>
                 <option value="Setup - System">Setup - System</option>
                 <option value="Setup - Company">Setup - Company</option>
@@ -34,16 +34,76 @@
                 <option value="Billing">Billing</option>
                 <option value="Clock">Clock</option>
             </select>
-            
+
             <div class="text-center mt-3">
               <div (click)="NewQuestion()" class="btn bg-primary text-white">Submit</div>
             </div>
-            
-            
+
+
         </div>
     </form>
   </div>
-  <div class="questionList">
-  </div>  
+  <div class=" questionList d-inline-block">
+
+  </div>
 </div>
-<router-outlet></router-outlet>
+<router-outlet></router-outlet> -->
+<div class="container" style="height: 100%; width: 100%; ">
+  <div class="row">
+    <div class=" col-6" style="height: 100vh; padding-top: 15vh; background-color: #0f2d4f;">
+      <form id="api-test" style="margin: auto;" class="formd" [ngClass]="{'borderGreen': Result == '200', 'borderRed':Result=='500'}">
+        <div id="success" *ngIf="Result == '200'" class="text-center fs-3 fw-bold" style="margin-top: -5%; color: greenyellow;">Success</div>
+        <div id="failed" *ngIf="Result == '500'" class="text-center fs-3 fw-bold" style="margin-top: -5%; color: crimson;">Failed</div>
+
+          <div>
+              <div><label for="question">Question Title:</label></div>
+              <input type="text" id="header" name="header" required style="width: 90%;">
+          </div>
+          <div>
+              <div><label for="description">Question Answer:</label></div>
+              <textarea type="text" id="description" name="description" required style="width: 90%; height: 20vh; resize: none; overflow-wrap: break-word;"></textarea>
+          </div>
+          <div>
+              <div><label for="tags">Key Words:</label></div>
+              <textarea type="text" id="tags" name="tags" placeholder="POD, Pay-On-Demand, Pay" style="width: 90%; height: 4vh; resize: none; overflow-wrap: break-word;"></textarea>
+          </div>
+          <div>
+              <div><label for="category">Category:</label></div>
+              <select id="category" name="category" required class="">
+                  <option value="Payroll"> Payroll</option>
+                  <option value="Payroll - Forms & Notices"> Payroll - Forms & Notices</option>
+                  <option value="Hiring">Hiring</option>
+                  <option value="Employees">Employees</option>
+                  <option value="Schedule">Schedule</option>
+                  <option value="Time & Labor">Time & Labor</option>
+                  <option value="Human resources">Human resources</option>
+                  <option value="Reports">Reports</option>
+                  <option value="Setup - Security">Setup - Security</option>
+                  <option value="Setup - System">Setup - System</option>
+                  <option value="Setup - Company">Setup - Company</option>
+                  <option value="Setup - Policies">Setup - Policies</option>
+                  <option value="Billing">Billing</option>
+                  <option value="Clock">Clock</option>
+              </select>
+
+              <div class="text-center mt-3">
+                <div (click)="NewQuestion()" class="btn bg-primary text-white">Submit</div>
+              </div>
+
+
+          </div>
+      </form>
+    </div>
+    <div class="col-6" style="background-color: aqua;" >
+      <Table>
+        <tr *ngFor="let item of PastData">
+          <td>{{item.header}}</td>
+          <td>{{item.description}}</td>
+          <td>{{item.tags}}</td>
+        </tr>
+      </Table>
+
+    </div>
+  </div>
+
+</div>
