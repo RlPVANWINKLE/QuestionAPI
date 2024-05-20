@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit{
   async ngOnInit() {
-    const response = await fetch('https://wmzeeupjd57owgpb2hjeciiq5e0huipa.lambda-url.us-east-2.on.aws/payroll/',{
+    const response = await fetch('http://localhost:3000/All/',{
       method: 'GET'
     })
     const result = await response.json();
@@ -27,10 +27,10 @@ export class AppComponent implements OnInit{
     let Category = (<HTMLInputElement>document.getElementById('category')).value;
 
     let send = {
-      category: Question,
+      category: Category,
       description: Answer,
-      header: KeyWords,
-      tags: Category
+      header: Question,
+      tags: KeyWords
     }
     const response = await fetch('https://wmzeeupjd57owgpb2hjeciiq5e0huipa.lambda-url.us-east-2.on.aws/new-question/', {
       method: 'POST',
@@ -48,14 +48,32 @@ export class AppComponent implements OnInit{
     setTimeout(() => {
       this.PostResult = ''
     }, 1500);
+    this.ngOnInit();
   }
   async UpdateQuestion(){
+    let Question = (<HTMLInputElement>document.getElementById('header')).value;
+    let Answer = (<HTMLInputElement>document.getElementById('description')).value;
+    let KeyWords = (<HTMLInputElement>document.getElementById('tags')).value;
+    let Category = (<HTMLInputElement>document.getElementById('category')).value;
 
+    let send = {
+      category: Category,
+      description: Answer,
+      header: Question,
+      tags: KeyWords
+    }
+    const response = await fetch(`http://localhost:3000/update-question/${this.update._id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(send)
+    })
+    console.log(await response.status.toString());
     (<HTMLInputElement>document.getElementById('header')).value = '';
     (<HTMLInputElement>document.getElementById('description')).value = '';
     (<HTMLInputElement>document.getElementById('tags')).value = '';
     (<HTMLInputElement>document.getElementById('category')).value = 'Payroll';
     this.submissiontype = 'new'
+    this.ngOnInit();
   }
   async search(){
     let text = (<HTMLInputElement>document.getElementById('search')).value;
@@ -70,9 +88,10 @@ export class AppComponent implements OnInit{
         this.FilteredData.push(element)
       }
     });
-    (<HTMLInputElement>document.getElementById('search')).value = ' ';
+    (<HTMLInputElement>document.getElementById('search')).value = '';
   }
   QuestionClick(question:any){
+    console.log(question)
     this.submissiontype = 'update';
     this.update = question;
     (<HTMLInputElement>document.getElementById('header')).value = question.header;
