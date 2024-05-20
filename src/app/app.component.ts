@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit{
   async ngOnInit() {
-    const response = await fetch('http://localhost:3000/All/',{
+    const response = await fetch('https://wmzeeupjd57owgpb2hjeciiq5e0huipa.lambda-url.us-east-2.on.aws/All/',{
       method: 'GET'
     })
     const result = await response.json();
@@ -62,7 +62,7 @@ export class AppComponent implements OnInit{
       header: Question,
       tags: KeyWords
     }
-    const response = await fetch(`http://localhost:3000/update-question/${this.update._id}`, {
+    const response = await fetch(`https://wmzeeupjd57owgpb2hjeciiq5e0huipa.lambda-url.us-east-2.on.aws/update-question/${this.update._id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(send)
