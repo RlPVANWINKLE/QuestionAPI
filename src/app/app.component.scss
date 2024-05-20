@@ -9,3 +9,12 @@
     width: 50vw;
     height: 100vh;
 }
+.border1{
+  border: 2px solid black;
+}
+.border1:hover{
+  cursor: pointer;
+  border: 2px solid black;
+  color: white;
+  background-color: gray;
+}

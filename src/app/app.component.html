@@ -48,12 +48,12 @@
   </div>
 </div>
 <router-outlet></router-outlet> -->
-<div class="container" style="height: 100%; width: 100%; ">
+<div class="container-fluid" style="height: 100%; width: 100%; ">
   <div class="row">
-    <div class=" col-6" style="height: 100vh; padding-top: 15vh; background-color: #0f2d4f;">
-      <form id="api-test" style="margin: auto;" class="formd" [ngClass]="{'borderGreen': Result == '200', 'borderRed':Result=='500'}">
-        <div id="success" *ngIf="Result == '200'" class="text-center fs-3 fw-bold" style="margin-top: -5%; color: greenyellow;">Success</div>
-        <div id="failed" *ngIf="Result == '500'" class="text-center fs-3 fw-bold" style="margin-top: -5%; color: crimson;">Failed</div>
+    <div class=" col-5" style="height: 100vh; padding-top: 15vh; background-color: #0f2d4f;">
+      <form id="api-test" style="margin: auto;" class="formd" [ngClass]="{'borderGreen': PostResult == '200', 'borderRed':PostResult=='500'}">
+        <div id="success" *ngIf="PostResult == '200'" class="text-center fs-3 fw-bold" style="margin-top: -5%; color: greenyellow;">Success</div>
+        <div id="failed" *ngIf="PostResult == '500'" class="text-center fs-3 fw-bold" style="margin-top: -5%; color: crimson;">Failed</div>
 
           <div>
               <div><label for="question">Question Title:</label></div>
@@ -86,24 +86,32 @@
                   <option value="Clock">Clock</option>
               </select>
 
-              <div class="text-center mt-3">
+              <div class="text-center mt-3" *ngIf="submissiontype == 'new'">
                 <div (click)="NewQuestion()" class="btn bg-primary text-white">Submit</div>
+              </div>
+              <div class="text-center mt-3" *ngIf="submissiontype == 'update'">
+                <div (click)="UpdateQuestion()" class="btn bg-primary text-white">Update</div>
               </div>
 
 
           </div>
       </form>
     </div>
-    <div class="col-6" style="background-color: aqua;" >
-      <Table>
-        <tr *ngFor="let item of PastData">
-          <td>{{item.header}}</td>
-          <td>{{item.description}}</td>
-          <td>{{item.tags}}</td>
-        </tr>
-      </Table>
+    <div class="col-7" style="max-height: 100vh; overflow: scroll; overflow-x: hidden;" >
+      <h3 class="text-center mt-3 mb-5 text-decoration-underline">Previous Questions</h3>
+      <input id="search" type="text" placeholder="Search..." (change)="search()">
+      <div class="container">
+        <div class="row border1 mb-3 mt-1 p-2" *ngFor="let item of FilteredData" (click)="QuestionClick(item)">
+          <div class="col-9 fw-bold fs-3">{{item.header}}</div>
+          <div class="col-3"><b>KeyWords: </b>{{item.tags}}</div>
+          <div class="row mt-3">
+            <div class="col-12">{{item.description}}</div>
+          </div>
+        </div>
 
+      </div>
     </div>
+
   </div>
 
 </div>

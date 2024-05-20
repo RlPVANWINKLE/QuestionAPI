@@ -11,11 +11,15 @@ export class AppComponent implements OnInit{
       method: 'GET'
     })
     const result = await response.json();
-    console.log(result)
     this.PastData = result;
+    this.FilteredData = this.PastData;
   }
-  Result!: string;
+  submissiontype:string = 'new'
+  update!:any;
+  Search!: any;
+  PostResult!: string;
   PastData!: any;
+  FilteredData!:any;
   async NewQuestion(){
     let Question = (<HTMLInputElement>document.getElementById('header')).value;
     let Answer = (<HTMLInputElement>document.getElementById('description')).value;
@@ -33,16 +37,47 @@ export class AppComponent implements OnInit{
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(send)
     })
-    this.Result = await response.status.toString();
+    this.PostResult = await response.status.toString();
 
-    if(this.Result == '200'){
+    if(this.PostResult == '200'){
       (<HTMLInputElement>document.getElementById('header')).value = '';
       (<HTMLInputElement>document.getElementById('description')).value = '';
       (<HTMLInputElement>document.getElementById('tags')).value = '';
       (<HTMLInputElement>document.getElementById('category')).value = 'Payroll';
     }
     setTimeout(() => {
-      this.Result = ''
+      this.PostResult = ''
     }, 1500);
+  }
+  async UpdateQuestion(){
+
+    (<HTMLInputElement>document.getElementById('header')).value = '';
+    (<HTMLInputElement>document.getElementById('description')).value = '';
+    (<HTMLInputElement>document.getElementById('tags')).value = '';
+    (<HTMLInputElement>document.getElementById('category')).value = 'Payroll';
+    this.submissiontype = 'new'
+  }
+  async search(){
+    let text = (<HTMLInputElement>document.getElementById('search')).value;
+    text = text.toLocaleLowerCase()
+    this.FilteredData = []
+    this.PastData.forEach((element:any) => {
+      let header = (element.header).toString().toLowerCase();
+      let description = (element.description).toString().toLowerCase();
+      let tags = (element.tags).toString().toLowerCase();
+      let category = (element.category).toString().toLowerCase();
+      if(header.includes(text) || description.includes(text) || tags.includes(text) || tags.includes(text)){
+        this.FilteredData.push(element)
+      }
+    });
+    (<HTMLInputElement>document.getElementById('search')).value = ' ';
+  }
+  QuestionClick(question:any){
+    this.submissiontype = 'update';
+    this.update = question;
+    (<HTMLInputElement>document.getElementById('header')).value = question.header;
+      (<HTMLInputElement>document.getElementById('description')).value = question.description;
+      (<HTMLInputElement>document.getElementById('tags')).value = question.tags;
+      (<HTMLInputElement>document.getElementById('category')).value = question.category;
   }
 }
