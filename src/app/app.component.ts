@@ -7,12 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit{
   async ngOnInit() {
+    this.loading = true;
     const response = await fetch('https://wmzeeupjd57owgpb2hjeciiq5e0huipa.lambda-url.us-east-2.on.aws/All/',{
       method: 'GET'
     })
     const result = await response.json();
     this.PastData = result;
     this.FilteredData = this.PastData;
+    this.loading = false;
   }
   submissiontype:string = 'new'
   update!:any;
@@ -20,6 +22,7 @@ export class AppComponent implements OnInit{
   PostResult!: string;
   PastData!: any;
   FilteredData!:any;
+  loading:boolean = false;
   async NewQuestion(){
     let Question = (<HTMLInputElement>document.getElementById('header')).value;
     let Answer = (<HTMLInputElement>document.getElementById('description')).value;
