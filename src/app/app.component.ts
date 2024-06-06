@@ -24,21 +24,27 @@ export class AppComponent implements OnInit{
   FilteredData!:any;
   loading:boolean = false;
   links:Array<any> = [];
+  addlink(){
+    let link = (<HTMLInputElement>document.getElementById('links')).value;
+    this.links.push(link);
+    (<HTMLInputElement>document.getElementById('links')).value = '';
+  }
   async NewQuestion(){
     let Question = (<HTMLInputElement>document.getElementById('header')).value;
     let Answer = (<HTMLInputElement>document.getElementById('description')).value;
     let KeyWords = (<HTMLInputElement>document.getElementById('tags')).value;
     let Category = (<HTMLInputElement>document.getElementById('category')).value;
+    let links = this.links
 
     let send = {
       category: Category,
       description: Answer,
       header: Question,
       tags: KeyWords,
-      links: ['https://www.w3schools.com/html/html_links.asp', 'wsd.net']
+      links: links
     }
-    // const response = await fetch('https://wmzeeupjd57owgpb2hjeciiq5e0huipa.lambda-url.us-east-2.on.aws/new-question/', {
-      const response = await fetch('http://localhost:3000/new-question/', {
+    const response = await fetch('https://wmzeeupjd57owgpb2hjeciiq5e0huipa.lambda-url.us-east-2.on.aws/new-question/', {
+      // const response = await fetch('http://localhost:3000/new-question/', {
 
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -56,21 +62,24 @@ export class AppComponent implements OnInit{
       this.PostResult = ''
     }, 1500);
     this.ngOnInit();
+    this.links = [];
   }
   async UpdateQuestion(){
     let Question = (<HTMLInputElement>document.getElementById('header')).value;
     let Answer = (<HTMLInputElement>document.getElementById('description')).value;
     let KeyWords = (<HTMLInputElement>document.getElementById('tags')).value;
     let Category = (<HTMLInputElement>document.getElementById('category')).value;
-
+    let links = this.links
     let send = {
       category: Category,
       description: Answer,
       header: Question,
-      tags: KeyWords
+      tags: KeyWords,
+      links: links
     }
     
     const response = await fetch(`https://wmzeeupjd57owgpb2hjeciiq5e0huipa.lambda-url.us-east-2.on.aws/update-question/${this.update._id}`, {
+      // const response = await fetch(`http://localhost:3000/update-question/${this.update._id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(send)
@@ -82,6 +91,7 @@ export class AppComponent implements OnInit{
     (<HTMLInputElement>document.getElementById('category')).value = 'Payroll';
     this.submissiontype = 'new'
     this.ngOnInit();
+    this.links = []
   }
   async search(){
     let text = (<HTMLInputElement>document.getElementById('search')).value;
