@@ -23,6 +23,7 @@ export class AppComponent implements OnInit{
   PastData!: any;
   FilteredData!:any;
   loading:boolean = false;
+  links:Array<any> = [];
   async NewQuestion(){
     let Question = (<HTMLInputElement>document.getElementById('header')).value;
     let Answer = (<HTMLInputElement>document.getElementById('description')).value;
@@ -33,9 +34,12 @@ export class AppComponent implements OnInit{
       category: Category,
       description: Answer,
       header: Question,
-      tags: KeyWords
+      tags: KeyWords,
+      links: ['https://www.w3schools.com/html/html_links.asp', 'wsd.net']
     }
-    const response = await fetch('https://wmzeeupjd57owgpb2hjeciiq5e0huipa.lambda-url.us-east-2.on.aws/new-question/', {
+    // const response = await fetch('https://wmzeeupjd57owgpb2hjeciiq5e0huipa.lambda-url.us-east-2.on.aws/new-question/', {
+      const response = await fetch('http://localhost:3000/new-question/', {
+
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(send)
@@ -65,6 +69,7 @@ export class AppComponent implements OnInit{
       header: Question,
       tags: KeyWords
     }
+    
     const response = await fetch(`https://wmzeeupjd57owgpb2hjeciiq5e0huipa.lambda-url.us-east-2.on.aws/update-question/${this.update._id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },

@@ -1,6 +1,6 @@
 <div class="container-fluid" style="height: 100%; width: 100%; ">
   <div class="row">
-    <div class=" col-5" style="height: 100vh; padding-top: 15vh; background-color: #0f2d4f;">
+    <div class=" col-5" style="height: 100vh; padding-top: 10vh; background-color: #0f2d4f;">
       <form id="api-test" style="margin: auto;" class="formd" [ngClass]="{'borderGreen': PostResult == '200', 'borderRed':PostResult=='500'}">
         <div id="success" *ngIf="PostResult == '200'" class="text-center fs-3 fw-bold" style="margin-top: -5%; color: greenyellow;">Success</div>
         <div id="failed" *ngIf="PostResult == '500'" class="text-center fs-3 fw-bold" style="margin-top: -5%; color: crimson;">Failed</div>
@@ -15,7 +15,7 @@
           </div>
           <div>
               <div><label for="tags">Key Words:</label></div>
-              <textarea type="text" id="tags" name="tags" placeholder="POD, Pay-On-Demand, Pay" style="width: 100%; height: 5vh; resize: none; overflow-wrap: break-word;" spellcheck="true"></textarea>
+              <textarea type="text" id="tags" name="tags" placeholder="POD, Pay-On-Demand, Pay" style="width: 100%; height: 7vh; resize: none; overflow-wrap: break-word;" spellcheck="true"></textarea>
           </div>
           <div>
               <div><label for="category">Category:</label></div>
@@ -35,7 +35,8 @@
                   <option value="Billing">Billing</option>
                   <option value="Clock">Clock</option>
               </select>
-
+              <div class="mt-2"><label for="links">Links</label></div>
+              <input type="text" id="links" name="links" required style="width: 60%;" spellcheck="true"><button class="btn btn-primary ms-3">Add Link</button>
               <div class="text-center mt-3" *ngIf="submissiontype == 'new'">
                 <div (click)="NewQuestion()" class="btn bg-primary text-white">Submit</div>
               </div>
@@ -73,7 +74,4 @@
 
   </div>
 
-</div>
-<div>
-  <iframe id="testing" width="100%" height="1200px"></iframe>
 </div>
